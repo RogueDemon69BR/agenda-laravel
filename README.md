@@ -1,3 +1,8 @@
+
+![GEzuAMwXQAAYKSL](https://github.com/user-attachments/assets/7fe12dc9-701d-4b64-b759-c53a5f3878c4)
+
+
+
 Copiado dos brode do pi não, isso aqui é uma homenagem a eles pq são brabo d+:
 
 Antes de começar, certifique-se de que você tem os seguintes softwares instalados em sua máquina:
