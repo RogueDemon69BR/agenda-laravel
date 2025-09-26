@@ -24,6 +24,15 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'O email é obrigatório.',
+            'email.email' => 'Digite um email válido.',
+            'password.required' => 'A senha é obrigatória.',
+        ];
+    }
+
     /** @throws ValidationException */
     public function authenticate(): void
     {

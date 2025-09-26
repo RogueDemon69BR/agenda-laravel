@@ -13,7 +13,7 @@ class ContactController extends Controller
         $query = $request->input('q');
 
         /** @var \App\Models\User $user */
-        $user = \Illuminate\Support\Facades\Auth::user();
+        $user = Auth::user();
 
         $contacts = $user->contacts()
             ->when($query, function ($qbuilder) use ($query) {
@@ -31,32 +31,37 @@ class ContactController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'name'    => 'required',
-        'email'   => 'required|email',
-        'phone'   => ['required', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
-        'address' => 'nullable',
-    ]);
+    {
+        $request->validate([
+            'name'    => 'required',
+            'email'   => 'required|email',
+            'phone'   => ['required', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
+            'address' => 'nullable',
+        ], [
+            'name.required'  => 'O campo nome é obrigatório.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email'    => 'Digite um endereço de email válido.',
+            'phone.required' => 'O campo telefone é obrigatório.',
+            'phone.regex'    => 'O telefone deve seguir o formato (00) 00000-0000.',
+        ]);
 
-    /** @var \App\Models\User $user */
-    $user = Auth::user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
-    
-    $exists = $user->contacts()
-        ->where('email', $request->email)
-        ->orWhere('phone', $request->phone)
-        ->exists();
+        $exists = $user->contacts()
+            ->where('email', $request->email)
+            ->orWhere('phone', $request->phone)
+            ->exists();
 
-    if ($exists) {
-        return back()->withInput()
-                     ->withErrors(['email' => 'Contato com este e-mail ou telefone já existe.']);
+        if ($exists) {
+            return back()->withInput()
+                         ->withErrors(['email' => 'Contato com este e-mail ou telefone já existe.']);
+        }
+
+        $user->contacts()->create($request->all());
+
+        return redirect()->route('contacts.index')->with('success', 'Contato criado com sucesso!');
     }
-
-    $user->contacts()->create($request->all());
-
-    return redirect()->route('contacts.index')->with('success', 'Contato criado com sucesso!');
-}
 
     public function show(Contact $contact)
     {
@@ -73,27 +78,30 @@ class ContactController extends Controller
     }
 
     public function update(Request $request, Contact $contact)
-{
-    $this->authorizeContact($contact);
+    {
+        $this->authorizeContact($contact);
 
-    $request->validate([
-        'name'    => 'required',
-        'email'   => 'required|email',
-        'phone'   => ['required', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
-        'address' => 'nullable',
-    ]);
+        $request->validate([
+            'name'    => 'required',
+            'email'   => 'required|email',
+            'phone'   => ['required', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
+            'address' => 'nullable',
+        ], [
+            'name.required'  => 'O campo nome é obrigatório.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email'    => 'Digite um endereço de email válido.',
+            'phone.required' => 'O campo telefone é obrigatório.',
+            'phone.regex'    => 'O telefone deve seguir o formato (00) 00000-0000.',
+        ]);
 
-    /** @var \App\Models\User $user */
-    $user = Auth::user();
+        $contact->update($request->all());
 
-    $contact->update($request->all());
+        return redirect()->route('contacts.index')->with('success', 'Contato atualizado com sucesso!');
+    }
 
-    return redirect()->route('contacts.index')->with('success', 'Contato atualizado com sucesso!');
-}
-
-public function destroy(Contact $contact)
-{
-    $this->authorizeContact($contact);
+    public function destroy(Contact $contact)
+    {
+        $this->authorizeContact($contact);
 
         $contact->delete();
 

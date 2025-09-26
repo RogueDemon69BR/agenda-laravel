@@ -13,43 +13,45 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach($errors->all() as $err)
-                                <li>{{ $err }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <form action="{{ route('contacts.update', $contact->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
-                        <input type="text" name="name" class="form-control" 
-                               value="{{ old('name', $contact->name) }}" required>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                               value="{{ old('name', $contact->name) }}">
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" 
+                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" 
                                value="{{ old('email', $contact->email) }}">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="phone" class="form-label">Telefone</label>
-                        <input type="tel" name="phone" id="phone" class="form-control" 
+                        <input type="text" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" 
                                placeholder="(xx) xxxxx-xxxx"
-                               value="{{ old('phone', $contact->phone) }}" required>
+                               value="{{ old('phone', $contact->phone) }}">
+                        @error('phone')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="address" class="form-label">Endereço (opcional)</label>
-                        <input type="text" name="address" class="form-control" 
+                        <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" 
                                value="{{ old('address', $contact->address) }}">
+                        @error('address')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Atualizar</button>

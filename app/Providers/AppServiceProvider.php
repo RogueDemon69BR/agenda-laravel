@@ -7,14 +7,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * O caminho para onde os usuários são redirecionados após o login.
-     */
-    public const HOME = '/dashboard'; // Alterado para Dashboard
+    public const HOME = '/dashboard';
 
-    /**
-     * Define as rotas do aplicativo.
-     */
     public function boot(): void
     {
         $this->configureRateLimiting();
@@ -29,9 +23,6 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Configuração de rate limiting (não precisa alterar)
-     */
     protected function configureRateLimiting(): void
     {
         //

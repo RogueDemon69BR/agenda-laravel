@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+class RegisterUserController extends Controller
 {
     
     public function create(): View
@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
             'email.required' => 'O email é obrigatório.',
             'email.email' => 'Digite um email válido.',
             'email.unique' => 'Este email já está em uso.',
+            'email.lowercase' => 'O email deve estar em letras minúsculas.',
             'password.required' => 'A senha é obrigatória.',
             'password.confirmed' => 'A confirmação da senha não confere.',
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
