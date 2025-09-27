@@ -20,7 +20,7 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento em sua máqu
 **1. Clonar o Repositório**
 
 ```bash
-git clone <https://github.com/RogueDemon69BR/agenda-laravel.git>
+git clone https://github.com/RogueDemon69BR/agenda-laravel.git
 ou façam o download diretamente pelo github
 ```
 
