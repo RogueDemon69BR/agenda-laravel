@@ -17,6 +17,16 @@ npm install
 
 # Configurar ambiente
 cp .env.example .env
+edita o .env com:
+
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=database/database.sqlite
+DB_USERNAME=root
+DB_PASSWORD=
+
+continua com:
 php artisan key:generate
 
 # Criar tabelas do banco
@@ -24,6 +34,7 @@ php artisan migrate
 
 # Compilar assets
 npm run dev
+crt+c
 
 # Rodar servidor local
 php artisan serve
