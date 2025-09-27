@@ -26,6 +26,7 @@ ou façam o download diretamente pelo github
 
 **2. Instalar Dependências do PHP**
 
+Vá para a pasta do projeto usando o comando cd
 Use o Composer para instalar todos os pacotes PHP necessários.
 
 ```bash
